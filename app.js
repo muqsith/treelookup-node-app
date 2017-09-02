@@ -155,6 +155,13 @@ function search_depthfirst_promise(num) {
     });
 }
 
+module.exports = {
+    search_breadthfirst_callback,
+    search_breadthfirst_promise,
+    search_depthfirst_callback,
+    search_depthfirst_promise
+}
+
 // Tests
 
 function show(result) {
