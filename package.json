@@ -2,9 +2,9 @@
   "name": "treelookup-node",
   "version": "1.0.0",
   "description": "Node app for treelookup API",
-  "main": "app.js",
+  "main": "test.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node test 24"
   },
   "author": "muqsith",
   "license": "ISC",

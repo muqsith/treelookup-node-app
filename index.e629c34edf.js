@@ -99,12 +99,12 @@
         this.getChildrenAsCallback = function (e, n) {
             setTimeout(function () {
                 n(null, t(e))
-            }, 0)
+            }, 10)
         }, this.getChildrenAsPromise = function (n) {
             return new e(function (e) {
                 setTimeout(function () {
                     e(t(n))
-                }, 0)
+                }, 10)
             })
         }
     }
