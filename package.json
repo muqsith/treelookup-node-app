@@ -1,0 +1,14 @@
+{
+  "name": "treelookup-node",
+  "version": "1.0.0",
+  "description": "Node app for treelookup API",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "muqsith",
+  "license": "ISC",
+  "dependencies": {
+    "bluebird": "^3.5.0"
+  }
+}
