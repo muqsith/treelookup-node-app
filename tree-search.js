@@ -16,56 +16,54 @@ function TreeSearch(tree_lookup) {
     
     // Breadth first - getChildrenAsCallback
     function get_breadthfirst_callback_search() {
-        var count = 1;
         var result = '';
-        return (function breadthfirst_callback_search (n, cb, p) {
-            if (!p) {
-                p = '/';
-            }
+        var arr = ['/'];
+        return (function breadthfirst_callback_search (n, cb) {
+            var p = arr.shift();
             tree_lookup.getChildrenAsCallback(p, function(err, children) {
-                count -= 1;
-                if (children.indexOf(n) !== -1) {
-                    result = p;
-                    count = 0;
+                for (var i=0; i<children.length; i+=1) {
+                    if (children[i] === n) {
+                        result = p;
+                        arr = [];
+                        break;
+                    } else {
+                        arr.push(p+'/'+children[i]);
+                    }                    
+                }
+                if (arr.length > 0) {
+                    breadthfirst_callback_search(n, cb);
                 } else {
-                    for (var i=0; i<children.length; i+=1) {
-                        breadthfirst_callback_search(n, cb, p+'/'+children[i]);
-                        count += 1;
-                    }
-                }
-                if (count === 0) {
                     cb(result);
-                }
+                }             
             });
-        });    
+        }); 
     }
     
     // Breadth first - getChildrenAsPromise
     function get_breadthfirst_promise_search() {
-        var count = 1;
         var result = '';
-        return (function breadthfirst_promise_search(n, p) {
+        var arr = ['/'];
+        return (function breadthfirst_promise_search (n) {
             return new Promise(function(resolve, reject){
-                if (!p) {
-                    p = '/';
-                }
-                tree_lookup.getChildrenAsPromise(p).then(function(children){
-                    count -= 1;
-                    if (children.indexOf(n) !== -1) {
-                        result = p;
-                        count = 0;
+                var p = arr.shift();
+                tree_lookup.getChildrenAsCallback(p, function(err, children) {
+                    for (var i=0; i<children.length; i+=1) {
+                        if (children[i] === n) {
+                            result = p;
+                            arr = [];
+                            break;
+                        } else {
+                            arr.push(p+'/'+children[i]);
+                        }                    
+                    }
+                    if (arr.length > 0) {
+                        breadthfirst_promise_search(n).then(resolve);
                     } else {
-                        for (var i=0; i<children.length; i+=1) {
-                            breadthfirst_promise_search(n, p+'/'+children[i]).then(resolve);
-                            count += 1;
-                        }
-                    }
-                    if (count === 0) {
                         resolve(result);
-                    }
+                    }             
                 });
             });
-        });    
+        });
     }
     
     // Depth first - getChildrenAsCallback
